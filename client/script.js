@@ -21,7 +21,7 @@ const loader = (element) => {
 const typeText = (element, text) => {
   let index = 0;
 
-  let interval = setInterval((element, text) => {
+  let interval = setInterval(() => {
     if (index < text.length) {
       element.innerHTML += text.charAt(index);
       index++;
@@ -63,6 +63,32 @@ const handleSubmit = async (e) => {
   const messageDiv = document.getElementById(uniqueId);
 
   loader(messageDiv);
+
+  const response = await fetch("http://localhost:5000", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      prompt: data.get("prompt"),
+    }),
+  });
+
+  clearInterval(loadInterval);
+
+  messageDiv.innerHTML = "";
+
+  if (response.ok) {
+    const data = await response.json();
+    const parseData = data.bot.trim();
+
+    typeText(messageDiv, parseData);
+  } else {
+    const err = await response.text();
+    messageDiv.innerHTML = "Suck yo mom";
+
+    alert(err);
+  }
 };
 
 form.addEventListener("submit", handleSubmit);
