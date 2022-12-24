@@ -8,7 +8,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+    <div id="app">
+      <div class="chat_container"></div>
+
+      <form>
+        <textarea
+          name="prompt"
+          cols="1"
+          rows="1"
+          placeholder="Say anything...."></textarea>
+        <button type="submit">
+          <img src="assets/assets/send.svg" alt="send-btn" />
+        </button>
+      </form>
+    </div>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
